@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>心语 · 心理测评中心（首页）</title>
+<style>
+  :root{
+    --accent:#0b7261;
+    --accent-2:#40C9A2;
+    --bg-start:#c8f3e0;
+    --bg-end:#a1e3d8;
+    --card:#ffffff;
+    --muted:#516a67;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:"Noto Sans SC","Microsoft YaHei",sans-serif;
+    background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
+    color:#043936;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* header */
+  header{
+    position:sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px; padding:14px 20px;
+    background: rgba(7,85,74,0.98);
+    color:#fff;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.14);
+  }
+  .brand{display:flex;align-items:center;gap:12px}
+  .logo{
+    width:44px;height:44px;border-radius:10px;background:#fff;color:var(--accent);
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:18px;
+  }
+  .title {font-size:18px; font-weight:700; margin:0}
+  .subtitle {font-size:12px; color:rgba(255,255,255,0.9)}
+  .top-actions{display:flex;align-items:center;gap:10px}
+
+  /* GitHub link */
+  .gh-link{
+    display:inline-flex; align-items:center; gap:8px; text-decoration:none;
+    color: #fff; padding:6px 10px; border-radius:8px; background: linear-gradient(90deg,#2e6b61,#1e5f55);
+    transition:transform .12s, box-shadow .12s;
+  }
+  .gh-link:hover{ transform:translateY(-3px); box-shadow:0 10px 20px rgba(2,45,40,0.18); }
+
+  /* layout: two-column hero */
+  .container{max-width:1200px;margin:26px auto;padding:0 20px}
+  .hero {display:grid; grid-template-columns: 1fr 420px; gap:22px; align-items:stretch; margin-bottom:18px; }
+  @media (max-width:980px){ .hero{grid-template-columns:1fr; } }
+
+  .hero-left{
+    background:var(--card); padding:26px; border-radius:16px;
+    box-shadow:0 10px 28px rgba(6,38,36,0.06);
+    display:flex;flex-direction:column; gap:12px;
+  }
+  .hero-right{
+    background: linear-gradient(180deg,#ffffff,#f2fffb);
+    padding:18px; border-radius:16px; box-shadow:0 10px 28px rgba(6,38,36,0.06);
+    display:flex;flex-direction:column; gap:14px; align-items:center;
+  }
+
+  .kicker{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-2),#33b18f);color:white;font-weight:700}
+  h1{margin:0;font-size:28px;color:var(--accent)}
+  p.lead{margin:0;color:var(--muted);line-height:1.6}
+
+  /* features grid for filling content */
+  .features-grid {display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:12px}
+  @media (max-width:900px){ .features-grid{grid-template-columns:repeat(2,1fr);} }
+  .feature{
+    background:#f9fffb;padding:12px;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,0.04);
+  }
+  .cta-row{display:flex;gap:12px;align-items:center;margin-top:12px}
+
+  /* right column widgets */
+  .mini-card{width:100%; border-radius:12px; padding:12px; background:#fff; box-shadow:0 8px 20px rgba(0,0,0,0.06)}
+  canvas{max-width:100%}
+
+  .start-btn{background:var(--accent-2); color:white; padding:12px 18px; border-radius:999px; border:0; cursor:pointer; font-weight:800;
+    box-shadow:0 10px 24px rgba(64,201,162,0.22); transition:transform .12s;}
+  .start-btn:hover{transform:translateY(-4px)}
+
+  .muted{color:var(--muted)}
+  .disclaimer{background:rgba(255,255,255,0.7); padding:12px; border-radius:10px; color:#0b3b36; font-size:13px; margin-top:12px}
+
+  /* footer */
+  footer{margin-top:28px; text-align:center; color:rgba(4,57,54,0.8); font-size:13px; padding:22px 10px}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">心</div>
+    <div>
+      <div class="title">心语 · 心理测评中心</div>
+      <div class="subtitle">探索自我 · 科普测评 · 非医疗诊断</div>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <!-- GitHub 链接：把 href 替换为你的仓库地址 -->
+    <a class="gh-link" href="https://github.com/YOUR-USERNAME/YOUR-REPO" target="_blank" rel="noopener" aria-label="GitHub 仓库">
+      <!-- GitHub SVG icon -->
+      <svg height="20" viewBox="0 0 16 16" version="1.1" width="20" aria-hidden="true" fill="#fff">
+        <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+        0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01
+        1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95
+        0-.87.31-1.59.82-2.15-.08-.2-.36-1.01.08-2.11 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0
+        1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.91.08 2.11.51.56.82 1.27.82 2.15
+        0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013
+        8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+      </svg>
+      <span style="font-weight:700">GitHub</span>
+    </a>
+    <a href="test.html" class="start-btn" style="text-decoration:none">开始一次性测评（80题）</a>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero" aria-labelledby="heroTitle">
+    <!-- 左侧：丰富介绍（主内容） -->
+    <div class="hero-left">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <div>
+          <span class="kicker">免费 · 匿名 · 本地计算</span>
+          <h1 id="heroTitle">一次性完成五大量表 · 深度自测</h1>
+          <p class="lead">将 SAS（焦虑）、SDS（抑郁）、SCL-90（综合症状）、UCLA（孤独）与 SES（自尊）集合到同一份问卷，完成后你会得到每个量表的分数、区间判断与针对性建议。结果仅供参考，不构成临床诊断。</p>
+        </div>
+        <div style="text-align:right" class="muted">预计用时：8–12 分钟</div>
+      </div>
+
+      <div class="features-grid" aria-hidden="false">
+        <div class="feature"><strong>SAS（焦虑）</strong><div class="muted">识别你焦虑程度与常见躯体化表现。</div></div>
+        <div class="feature"><strong>SDS（抑郁）</strong><div class="muted">检测情绪低落、兴趣丧失等抑郁相关项。</div></div>
+        <div class="feature"><strong>SCL-90（症状）</strong><div class="muted">覆盖躯体化、强迫、敌对等多维症状。</div></div>
+        <div class="feature"><strong>UCLA（孤独）</strong><div class="muted">评估社会联系与主观孤独感。</div></div>
+        <div class="feature"><strong>SES（自尊）</strong><div class="muted">测量自我价值感与自信水平。</div></div>
+        <div class="feature"><strong>隐私保护</strong><div class="muted">全部计算在本地，页面不会上传答案。</div></div>
+      </div>
+
+      <div class="cta-row">
+        <a href="test.html" class="start-btn" style="text-decoration:none">马上开始测评</a>
+        <a href="#disclaimer" style="align-self:center;text-decoration:none;color:var(--muted)">查看声明</a>
+      </div>
+
+      <div id="disclaimer" class="disclaimer" role="note">
+        <strong>重要声明：</strong> 本站提供的测评为科普与自我探索工具，结果不等同于临床诊断。如有严重情绪困扰、持续失眠、自伤或自杀念头，请及时联系专业心理医疗机构或急救服务。
+      </div>
+    </div>
+
+    <!-- 右侧：侧栏 (填充内容与视觉) -->
+    <aside class="hero-right" aria-label="侧栏">
+      <div class="mini-card" style="width:100%;text-align:center">
+        <div style="font-weight:800;color:var(--accent);font-size:16px">快速展示 · 心理画像（示例）</div>
+        <canvas id="homeMiniRadar" width="320" height="220" style="margin-top:10px"></canvas>
+        <div class="muted" style="font-size:13px;margin-top:8px">完成测评后这里将展示你的真实得分分布喵～</div>
+      </div>
+
+      <div class="mini-card" style="margin-top:12px; text-align:left">
+        <div style="font-weight:800;color:#114B42;margin-bottom:8px">本站特色</div>
+        <ul class="muted" style="padding-left:18px; margin:0;">
+          <li>一次性大合集，省时高效</li>
+          <li>本地计算，保护隐私</li>
+          <li>可视化报告：雷达图 + 区间建议</li>
+          <li>非医疗用途，适合自我检测与普及</li>
+        </ul>
+      </div>
+    </aside>
+  </section>
+
+  <!-- 额外填充区：更多说明与常见问答，避免页面太空 -->
+  <section style="background:var(--card);padding:18px;border-radius:12px;box-shadow:0 10px 28px rgba(6,38,36,0.06);margin-bottom:18px">
+    <h3 style="margin:0 0 10px;color:var(--accent)">测评流程 · 简要说明</h3>
+    <ol style="margin:0;padding-left:18px;color:var(--muted);line-height:1.8">
+      <li>点击「开始测评」，进入单页80题问卷，一次完成。</li>
+      <li>所有题目为 5 档评分（从不 → 总是），部分题为反向计分，计算在页面本地完成。</li>
+      <li>提交后得到每份量表的 0–100 标准化得分、区间化判断与建议，并生成雷达图。</li>
+      <li>本网站不存储你的答案，想保存结果可使用浏览器的导出或截图功能。</li>
+    </ol>
+  </section>
+
+  <footer>
+    <div style="max-width:900px;margin:0 auto">
+      <div style="font-weight:700;color:#063a35">© 2025 心语 · 心理测评中心</div>
+      <div class="muted" style="margin-top:6px">本站仅作自我检测与科普用途，並非医疗诊断。若存在紧急状况，请联系专业医疗机构。</div>
+    </div>
+  </footer>
+</main>
+
+<!-- 轻量 Chart.js 生成首页小雷达（仅示例数据） -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+  (function createMiniRadar(){
+    const ctx = document.getElementById('homeMiniRadar').getContext('2d');
+    const labels = ['SAS','SDS','SCL','UCLA','SES'];
+    const data = [45,38,30,22,60]; // 示例占位数据
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '示例得分',
+          data: data,
+          fill: true,
+          backgroundColor: 'rgba(64,201,162,0.16)',
+          borderColor: 'rgba(64,201,162,0.95)',
+          pointBackgroundColor:'rgba(64,201,162,0.95)'
+        }]
+      },
+      options: {
+        scales: {
+          r: { min: 0, max: 100, ticks: { stepSize: 20, color:'#2b6b61' }, grid:{color:'rgba(6,38,36,0.06)'} }
+        },
+        plugins: { legend: { display: false } }
+      }
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>心语 · 一次性大合集测评</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root{
+      --accent:#0b7261;
+      --accent-2:#40C9A2;
+      --card:#ffffff;
+      --bg:#f3f7f6;
+      --muted:#566a67;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Noto Sans SC", "Microsoft YaHei", sans-serif;
+      background:linear-gradient(180deg, #e7fbf6, #f3f7f6);
+      color:#053231;
+      -webkit-font-smoothing:antialiased;
+    }
+    header{
+      background:var(--accent);
+      color:white;
+      padding:20px;
+      text-align:center;
+      position:sticky;
+      top:0;
+      z-index:10;
+      box-shadow:0 6px 18px rgba(11,114,97,0.18);
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+    }
+    header h1{margin:0;font-size:20px}
+    .subtitle{font-size:13px;color:rgba(255,255,255,0.9)}
+    .container{max-width:1100px;margin:28px auto;padding:0 20px}
+    .intro-card{
+      background:var(--card);border-radius:12px;padding:20px;box-shadow:0 8px 24px rgba(6,38,36,0.06);
+      display:flex;gap:18px;align-items:center;animation:fadeIn .6s ease;
+    }
+    .intro-left{flex:1}
+    .intro-right{width:320px}
+    .pill{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--accent-2),#33b18f);color:white;font-weight:600}
+    .features{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+    .feature{background:#f9fffb;border-radius:10px;padding:12px;flex:1;min-width:180px;box-shadow:0 6px 16px rgba(0,0,0,0.04)}
+    .hint{color:var(--muted);font-size:14px;margin-top:8px}
+    .start-row{display:flex;gap:10px;align-items:center;margin-top:14px}
+    .btn{
+      background:var(--accent-2); color:white; padding:10px 18px; border-radius:999px; border:0; cursor:pointer; font-weight:700;
+      box-shadow:0 8px 18px rgba(64,201,162,0.25); transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(64,201,162,0.32)}
+    .small{background:transparent;color:white;border:1px solid rgba(255,255,255,0.12);padding:8px 12px;border-radius:8px}
+    /* form */
+    form{margin-top:22px}
+    section.scale{margin-bottom:26px}
+    .scale-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 8px 20px rgba(16,39,38,0.05);margin-bottom:12px;animation:fadeIn .5s ease}
+    .qrow{display:flex;flex-direction:column;gap:8px}
+    .qtext{font-weight:600}
+    .opts{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+    .opt{background:#f3faf7;border-radius:8px;padding:8px 10px;cursor:pointer;border:1px solid transparent;transition:all .12s}
+    .opt input{display:none}
+    .opt.selected{border-color:var(--accent-2);box-shadow:0 8px 18px rgba(64,201,162,0.08)}
+    .progress-wrap{height:10px;background:#e8f6f3;border-radius:999px;overflow:hidden}
+    .progress{height:100%;background:linear-gradient(90deg,var(--accent-2),#2fa688);width:0%}
+    .submit-row{display:flex;gap:12px;align-items:center;margin-top:18px;justify-content:space-between}
+    .result-panel{margin-top:18px;display:flex;gap:18px;flex-wrap:wrap}
+    .result-card{flex:1;min-width:260px;background:linear-gradient(180deg,#ffffff,#f8fffd);padding:14px;border-radius:12px;border-left:6px solid var(--accent-2);box-shadow:0 10px 28px rgba(0,0,0,0.06)}
+    .result-title{font-size:16px;font-weight:800;color:var(--accent)}
+    .muted{color:var(--muted)}
+    footer{margin-top:36px;text-align:center;color:var(--muted);font-size:13px;padding:30px 10px}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @media (max-width:900px){
+      .intro-card{flex-direction:column}
+      .intro-right{width:auto}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div style="width:44px;height:44px;border-radius:10px;background:white;display:flex;align-items:center;justify-content:center;color:var(--accent)"><strong>心</strong></div>
+      <div>
+        <h1 style="margin:0">心语 · 一次性大合集测评</h1>
+        <div class="subtitle">一次完成 SAS / SDS / SCL-90 / UCLA / SES（共 80 题），结果为参考，不是诊断</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center">
+      <a href="index.html" class="small" style="text-decoration:none;color:white">← 返回首页</a>
+      <button class="small" id="topDisclaimerBtn" title="免责声明">免责声明</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="intro-card">
+      <div class="intro-left">
+        <div><span class="pill">免费 · 匿名 · 普及</span></div>
+        <h2 style="margin:10px 0 4px">一次性完成 5 大量表 · 深度自测</h2>
+        <p class="hint">本页面汇聚多套成熟量表，方便一次性测评你的焦虑、抑郁、孤独、自尊与常见心理症状。完成后会得到每份量表的分数区间化判断与针对性建议。</p>
+
+        <div class="features" style="margin-top:12px">
+          <div class="feature"><strong>SAS</strong><div class="muted">焦虑评估（20题）</div></div>
+          <div class="feature"><strong>SDS</strong><div class="muted">抑郁评估（20题）</div></div>
+          <div class="feature"><strong>SCL-90</strong><div class="muted">综合心理症状（20题精选）</div></div>
+          <div class="feature"><strong>UCLA</strong><div class="muted">孤独感（10题）</div></div>
+          <div class="feature"><strong>SES</strong><div class="muted">自尊（10题）</div></div>
+        </div>
+
+        <div class="start-row">
+          <button class="btn" id="scrollToForm">开始填写测评（共 80 题）</button>
+          <div style="font-size:13px;color:var(--muted)">预计完成时间：8–12 分钟</div>
+        </div>
+      </div>
+
+      <div class="intro-right">
+        <canvas id="miniRadar" width="320" height="240"></canvas>
+        <div class="hint" style="margin-top:10px">图示仅为占位，完成测评后将呈现实际分布。</div>
+      </div>
+    </div>
+
+    <form id="bigForm" autocomplete="off" novalidate>
+      <div style="margin-top:16px">
+        <div class="progress-wrap"><div class="progress" id="progressBar"></div></div>
+        <div style="font-size:13px;color:var(--muted);margin-top:6px">已回答 <span id="answeredCount">0</span> / <span id="totalCount">80</span> 题</div>
+      </div>
+
+      <!-- SCALES: each section generated by JS -->
+      <div id="scalesContainer"></div>
+
+      <div class="submit-row">
+        <div class="muted">请认真作答：答案仅用于自我参考，不构成医疗诊断。</div>
+        <div style="display:flex;gap:12px">
+          <button type="button" class="btn" id="submitBtn">提交测评</button>
+          <button type="button" id="resetBtn" style="background:#fff;border:1px solid #e6f4ef;padding:10px 14px;border-radius:10px;cursor:pointer">清空并重答</button>
+        </div>
+      </div>
+    </form>
+
+    <div id="resultArea"></div>
+
+    <footer>
+      <div>© 2025 心语 · 心理测评（仅供参考）。若存在严重心理困扰，请联系专业心理咨询或就医。</div>
+    </footer>
+  </div>
+
+  <script>
+  /*************** 数据与题目（我已审查题目数组与反向标记） ***************/
+  // 每个量表题目数组（示例题目，真实项目可替换为标准量表原文）
+  const SCALES = [
+    { key:'SAS', name:'焦虑自评量表（SAS）', n:20,
+      questions:[
+        "我感到紧张和不安。","我感到容易心烦。","我感到害怕或恐慌。","我经常头晕或头昏。",
+        "我的手或脚发抖。","我容易疲劳或乏力。","我感到心慌(反向)","我难以放松。",
+        "我对事情的专注力下降。","我时常睡眠不好。","我有胸口闷痛或压迫感。","我对突发事件感到恐惧。",
+        "我有呼吸急促或呼吸困难的感觉。","我觉得自己控制不了情绪。","我常感到烦躁。","我觉得肠胃容易不适。",
+        "我对社交场合感到紧张。","我有不由自主的肌肉紧张。","我觉得生活压力难以承受。","我常担心会发生不好的事情。"
+      ],
+      // 标注反向题索引（0-based），用于反向计分
+      reverse:[6]
+    },
+
+    { key:'SDS', name:'抑郁自评量表（SDS）', n:20,
+      questions:[
+        "我感到情绪低落或沮丧。","我对以前喜欢的事物失去兴趣。","我容易哭泣。","我感到精力不足。",
+        "我觉得自己没用(反向)","我的睡眠质量下降。","我食欲明显变化。","我感到未来没有希望。",
+        "我对社交不感兴趣。","我感觉自责增加。","我难以做决策。","我感到生活无意义。",
+        "我在早晨感觉最糟糕。","我觉得比别人更疲惫。","我对性兴趣减少。","我觉得自己与他人疏离。",
+        "我对自己的外貌或能力不满意(反向)","我感到运动或活动减少。","我对自己有负面评价。","我觉得必须在别人面前表现好(反向)"
+      ],
+      reverse:[4,16,19]
+    },
+
+    { key:'SCL', name:'SCL-90 精选（20题）', n:20,
+      questions:[
+        "最近我感到头痛或头部不适。","我感到容易害怕或惊恐。","我有心跳加速的感觉。","我感到肌肉紧张或酸痛。",
+        "我感到失眠或睡眠质量差。","我常常感到疲劳。","我感到自己的思维迟钝。","我有食欲或消化问题。",
+        "我有被人排斥或误解的感觉。","我经常感到焦虑或担忧。","我有自责或强烈的内疚感。","我有难以控制的愤怒。",
+        "我担心自己的健康。","我感到社交回避或孤独。","我有悲观的想法。","我有身体上莫名不适。",
+        "我感到记忆力下降。","我对未来感到恐惧。","我有自伤或伤害他人的念头。","我觉得情绪波动很大。"
+      ],
+      reverse:[]
+    },
+
+    { key:'UCLA', name:'UCLA 孤独量表', n:10,
+      questions:[
+        "我感到缺少陪伴。","我觉得很少有人了解我。","我感到孤立无援。",
+        "我经常一个人外出或度过时间。","我觉得没有亲密的朋友。","我觉得被别人忽略或排斥。",
+        "我觉得社交圈很小。","我常感到与周围人隔阂。","我觉得自己是多余的。","我有可以倾诉的人(反向)"
+      ],
+      reverse:[9]
+    },
+
+    { key:'SES', name:'自尊量表（SES）', n:10,
+      questions:[
+        "我对自己总体感觉很好。","我对自己的能力有信心。","我觉得自己值得被爱。",
+        "我对自己的优点感到自豪。","我有时觉得自己不如别人(反向)","我常感到自卑(反向)",
+        "我能接受自己的缺点。","我相信自己能应对生活的挑战。","我觉得自己有价值。","我希望自己更自信(反向)"
+      ],
+      reverse:[4,5,9]
+    }
+  ];
+
+  // total question count（自动）
+  let TOTAL_Q = SCALES.reduce((s,sc)=>s+sc.n,0);
+
+  /*************** 动态渲染问卷 ***************/
+  const container = document.getElementById('scalesContainer');
+  document.getElementById('totalCount').innerText = TOTAL_Q;
+
+  // 生成每一题的 HTML
+  function buildForm(){
+    SCALES.forEach(scale=>{
+      const sec = document.createElement('section');
+      sec.className = 'scale';
+      sec.innerHTML = `
+        <div class="scale-title">
+          <div><h3 style="margin:0">${scale.name}</h3><div class="muted" style="font-size:13px">${scale.n} 题</div></div>
+          <div style="font-size:13px;color:var(--muted)">量表：${scale.key}</div>
+        </div>
+      `;
+      const group = document.createElement('div');
+      scale.questions.forEach((qtext, idx)=>{
+        const qidx = `${scale.key}_Q${idx+1}`;
+        const card = document.createElement('div');
+        card.className='card';
+        card.innerHTML = `
+          <div class="qrow">
+            <div class="qtext">${idx+1}. ${qtext}</div>
+            <div class="opts" data-name="${qidx}">
+              <label class="opt"><input type="radio" name="${qidx}" value="1"/> 从不</label>
+              <label class="opt"><input type="radio" name="${qidx}" value="2"/> 偶尔</label>
+              <label class="opt"><input type="radio" name="${qidx}" value="3"/> 有时</label>
+              <label class="opt"><input type="radio" name="${qidx}" value="4"/> 经常</label>
+              <label class="opt"><input type="radio" name="${qidx}" value="5"/> 总是</label>
+            </div>
+          </div>
+        `;
+        group.appendChild(card);
+      });
+      sec.appendChild(group);
+      container.appendChild(sec);
+    });
+  }
+
+  buildForm();
+
+  /*************** 交互：选择样式、进度条 ***************/
+  function updateProgress(){
+    const answered = document.querySelectorAll('#bigForm input:checked').length;
+    document.getElementById('answeredCount').innerText = answered;
+    const pct = Math.round((answered / TOTAL_Q) * 100);
+    document.getElementById('progressBar').style.width = pct + '%';
+  }
+
+  // 代理点击选项以增加 “selected” class
+  document.addEventListener('click', (e)=>{
+    if(e.target.tagName === 'INPUT' && e.target.type==='radio'){
+      const name = e.target.name;
+      // 去除同名的 selected
+      document.querySelectorAll(`.opts[data-name="${name}"] .opt`).forEach(l=>{
+        l.classList.remove('selected');
+      });
+      // 标记当前选中 parent label
+      let parentLabel = e.target.closest('label.opt');
+      if(parentLabel) parentLabel.classList.add('selected');
+      updateProgress();
+    }
+  });
+
+  // 滚动到表单
+  document.getElementById('scrollToForm').addEventListener('click', ()=> {
+    document.getElementById('bigForm').scrollIntoView({behavior:'smooth'});
+  });
+
+  // 清空表单
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    document.getElementById('bigForm').reset();
+    document.querySelectorAll('.opt.selected').forEach(el=>el.classList.remove('selected'));
+    updateProgress();
+    document.getElementById('resultArea').innerHTML='';
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  /*************** 评分逻辑 ***************/
+  function computeScores(){
+    const results = {};
+    SCALES.forEach(scale=>{
+      let sum = 0;
+      for(let i=1;i<=scale.n;i++){
+        const name = `${scale.key}_Q${i}`;
+        const el = document.querySelector(`input[name="${name}"]:checked`);
+        if(!el) return {ok:false, missing:name}; // 发现未答题
+        let val = Number(el.value);
+        if(scale.reverse && scale.reverse.includes(i-1)){
+          val = 6 - val; // 反向题：1->5, 5->1
+        }
+        sum += val;
+      }
+      // 归一化 0..100: min = 1* n, max =5*n
+      const min = scale.n * 1;
+      const max = scale.n * 5;
+      const norm = ((sum - min) / (max - min)) * 100; // 0..100
+      results[scale.key] = {sum, norm: Math.round(norm*10)/10, n: scale.n};
+    });
+    return {ok:true, results};
+  }
+
+  // 区间与建议（通用 + 针对量表）
+  function interpretScore(key, score){
+    // score: 0..100
+    let level, advice;
+    if(score < 40){
+      level = '状态良好';
+    } else if(score < 55){
+      level = '轻度波动';
+    } else if(score < 70){
+      level = '中度压力';
+    } else if(score < 85){
+      level = '高压状态';
+    } else {
+      level = '严重困扰';
+    }
+
+    // 针对性建议：基于量表
+    const suggestions = {
+      SAS:{
+        '状态良好':'焦虑水平较低，能较好自我调节。保持规律作息与适量运动有益。',
+        '轻度波动':'有轻微焦虑波动，建议练习深呼吸与正念，减少刺激性饮料。',
+        '中度压力':'焦虑感较明显，建议寻求心理支持、规律锻炼并考虑专业评估。',
+        '高压状态':'焦虑显著影响生活，建议尽快与心理咨询师沟通并评估需要的干预。',
+        '严重困扰':'焦虑严重影响日常功能，应尽早寻求专业心理/精神科评估与干预。'
+      },
+      SDS:{
+        '状态良好':'情绪稳定，保持社交与生活规律可维持良好状态。',
+        '轻度波动':'有抑郁倾向的早期信号，建议注意睡眠与社交，必要时寻求倾诉。',
+        '中度压力':'抑郁症状明显，建议与心理咨询师沟通，并考虑专业干预。',
+        '高压状态':'抑郁严重，影响功能，建议尽快寻求心理或精神科专业帮助。',
+        '严重困扰':'抑郁程度高，可能需要药物或系统化心理治疗，请立即就医评估。'
+      },
+      SCL:{
+        '状态良好':'心理症状较少，注意生活质量维持即可。',
+        '轻度波动':'存在一些心理或躯体化症状，建议自我调节并留意变化。',
+        '中度压力':'多种症状同时出现，适合集体/个体心理咨询以系统评估。',
+        '高压状态':'症状群明显并影响日常生活，应尽快寻求专业评估与支持。',
+        '严重困扰':'多重严重症状，强烈建议尽快获得专业心理或医学帮助。'
+      },
+      UCLA:{
+        '状态良好':'社交连接健康，继续维持互动与兴趣活动。',
+        '轻度波动':'感到孤独的小波动，建议增加社交活动或寻求支持群体。',
+        '中度压力':'孤独感明显，建议主动联系朋友或参加社交/兴趣小组。',
+        '高压状态':'孤独影响生活与情绪，考虑社区支持或心理咨询。',
+        '严重困扰':'孤独感严重并伴随功能受损，建议寻求专业支持与危机干预。'
+      },
+      SES:{
+        '状态良好':'自尊良好，能积极应对挑战，继续自我肯定练习。',
+        '轻度波动':'自尊有波动，建议记录优点并进行肯定练习。',
+        '中度压力':'自我价值感受损明显，建议心理咨询帮助重建自尊。',
+        '高压状态':'自尊低下影响功能，建议专业评估与心理治疗。',
+        '严重困扰':'自尊严重受损并伴随心理困扰，请尽快寻求专业干预。'
+      }
+    };
+
+    advice = (suggestions[key] && suggestions[key][level]) || '建议结合生活方式调整与必要时寻求专业支持。';
+    return {level, advice};
+  }
+
+  /*************** 提交与展示结果 ***************/
+  const submitBtn = document.getElementById('submitBtn');
+  submitBtn.addEventListener('click', ()=>{
+    const comp = computeScores();
+    if(!comp.ok){
+      alert('请完成所有题目再提交（缺少：' + comp.missing + '）喵～');
+      document.querySelector(`input[name="${comp.missing}"]`)?.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+    const res = comp.results;
+    renderResults(res);
+  });
+
+  function renderResults(res){
+    // 构造结果面板
+    const area = document.getElementById('resultArea');
+    area.innerHTML = '';
+    const resultPanel = document.createElement('div');
+    resultPanel.className = 'result-panel';
+
+    const labels = []; const values = [];
+    for(const sc of SCALES){
+      const key = sc.key;
+      const score = res[key].norm; // 0..100
+      labels.push(sc.key);
+      values.push(score);
+      const interp = interpretScore(key, score);
+      const card = document.createElement('div');
+      card.className = 'result-card';
+      card.innerHTML = `
+        <div class="result-title">${sc.name}</div>
+        <div style="margin-top:8px;font-weight:800;font-size:18px">${score.toFixed(1)} 分</div>
+        <div style="margin-top:6px;font-weight:700;color:#31675f">${interp.level}</div>
+        <div style="margin-top:8px;color:var(--muted);font-size:14px">${interp.advice}</div>
+      `;
+      resultPanel.appendChild(card);
+    }
+    area.appendChild(resultPanel);
+
+    // 雷达图展示
+    const chartBox = document.createElement('div');
+    chartBox.style.marginTop='18px';
+    chartBox.style.background='white';
+    chartBox.style.padding='12px';
+    chartBox.style.borderRadius='12px';
+    chartBox.style.boxShadow='0 8px 24px rgba(0,0,0,0.05)';
+    chartBox.innerHTML = `<h3 style="margin:6px 0 10px;color:var(--accent)">你的心理画像（雷达）</h3><canvas id="radarChart" width="600" height="360"></canvas>`;
+    area.appendChild(chartBox);
+
+    // 创建图表
+    setTimeout(()=>{ // 等 DOM 插入后创建
+      const ctx = document.getElementById('radarChart').getContext('2d');
+      // 销毁旧图（若有）
+      if(window._radarChart) window._radarChart.destroy();
+      window._radarChart = new Chart(ctx, {
+        type:'radar',
+        data:{
+          labels: labels,
+          datasets:[{
+            label:'得分（0-100）',
+            data:values,
+            fill:true,
+            backgroundColor:'rgba(64,201,162,0.18)',
+            borderColor:'rgba(64,201,162,0.95)',
+            pointBackgroundColor:'rgba(64,201,162,0.95)',
+            pointBorderColor:'#fff',
+            pointHoverRadius:6,
+            tension:0.2
+          }]
+        },
+        options:{
+          scales:{
+            r:{
+              min:0, max:100, ticks:{stepSize:20, color:'#355c57'},
+              grid:{color:'rgba(6,38,36,0.06)'},
+              pointLabels:{color:'#1b463f', font:{size:12}}
+            }
+          },
+          plugins:{legend:{display:false}}
+        }
+      });
+      // 平滑滚动到结果
+      chartBox.scrollIntoView({behavior:'smooth', block:'center'});
+    },80);
+  }
+
+  // mini radar placeholder (空占位)
+  (function createMini(){
+    const ctx = document.getElementById('miniRadar').getContext('2d');
+    new Chart(ctx,{type:'radar',data:{labels:['SAS','SDS','SCL','UCLA','SES'],datasets:[{label:'示例',data:[10,20,15,5,25],backgroundColor:'rgba(255,255,255,0.01)',borderColor:'rgba(255,255,255,0.2)'}]},options:{plugins:{legend:{display:false}},scales:{r:{display:false}}}});
+  })();
+
+  // 页面顶部免责声明弹窗（简单）
+  document.getElementById('topDisclaimerBtn').addEventListener('click', ()=>{
+    alert('免责声明：本测评结果仅供参考，不代表临床诊断。如有严重情绪或行为问题，请及时联系心理健康专业人员或医疗机构。');
+  });
+
+  // 初始化 answered count update（适配初期无选中）
+  updateProgress();
+
+  // 当用户尝试离开页面时给个温柔提示（可取消）
+  window.addEventListener('beforeunload', (e) => {
+    if(document.querySelectorAll('#bigForm input:checked').length > 0){
+      e.preventDefault();
+      e.returnValue = '';
+    }
+  });
+  </script>
+</body>
+</html>
